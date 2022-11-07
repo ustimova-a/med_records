@@ -52,7 +52,7 @@ class Document(models.Model):
     date_issued = models.DateField()
     physician = models.ForeignKey(Physician, on_delete=models.CASCADE)
     condition = models.ForeignKey(Condition, on_delete=models.CASCADE)
-    prescribed_drug = models.ForeignKey(Drug, on_delete=models.CASCADE)
+    prescribed_drug = models.ManyToManyField(Drug)
     source_doc = models.FileField(upload_to="uploads/%Y/%m/%d/")
 
     def __str__(self):
@@ -67,6 +67,15 @@ class Treatment(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+
+class Visit(models.Model):
+    date_attended = models.DateField()
+    physician = models.ForeignKey(Physician, on_delete=models.CASCADE)
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
+    document = models.ForeignKey(Document, on_delete=models.CASCADE)
+    treatment = models.ForeignKey(Treatment, on_delete=models.CASCADE)
+    comment = models.TextField()
 
 
    

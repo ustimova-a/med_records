@@ -1,10 +1,5 @@
 import datetime
 
-from typing import TypeVar
-from typing import Type
-from typing import List
-
-from sqlalchemy import select
 from sqlalchemy import Boolean
 from sqlalchemy import Column
 from sqlalchemy import Integer
@@ -14,103 +9,23 @@ from sqlalchemy import DateTime
 from sqlalchemy import ForeignKey
 from sqlalchemy_utils import URLType
 
-from sqlalchemy.ext.asyncio import AsyncSession
-
-from db import Base
+from model_crud import BaseCRUD
 
 
-T_BaseCRUD = TypeVar('T_BaseCRUD', bound='BaseCRUD')
-
-
-class BaseCRUD(Base):
-    __abstract__ = True
-    id = Column(String, primary_key=True)
-
-    def __repr__(self):
-        return (
-            f"<{self.__class__.__name__}("
-            f"id={self.id}, "
-            f"name={self.name}, "
-            f")>"
-        )
-
-    @classmethod
-    async def create(cls, **kwargs) -> Self:
-        async with async_session() as db:
-            server = cls(id=str(uuid4()), **kwargs)
-            db.add(server)
-            try:
-                await db.commit()
-                await db.refresh(server)
-            except Exception:
-                await db.rollback()
-                raise
-            return server
-
-    @classmethod
-    async def update(cls, id, **kwargs) -> Self:
-        async with async_session() as db:
-            query = (
-                sqlalchemy_update(cls)
-                .where(cls.id == id)
-                .values(**kwargs)
-                .execution_options(synchronize_session="fetch")
-            )
-            await db.execute(query)
-            try:
-                await db.commit()
-            except Exception:
-                await db.rollback()
-                raise
-            return await cls.get(id)
-
-    @classmethod
-    async def get_by_id(
-        cls: Type[T_BaseCRUD],
-        id: int,
-        db_session: AsyncSession
-    ) -> T_BaseCRUD:
-
-        result = await db_session.execute(
-            select(cls).filter(cls.id == id and not cls.deleted)
-        )
-        return result.scalars().first()
-
-    @classmethod
-    async def get_all(
-        cls: Type[T_BaseCRUD],
-        id: int,
-        db_session: AsyncSession
-    ) -> List[T_BaseCRUD]:
-
-        result = await db_session.execute(select(cls).filter(not cls.deleted))
-        return result.scalars().all()
-
-    @classmethod
-    async def delete(cls, id) -> bool:
-        async with async_session() as db:
-            query = sqlalchemy_delete(cls).where(cls.id == id)
-            await db.execute(query)
-            try:
-                await db.commit()
-            except Exception:
-                await db.rollback()
-                raise
-            return True
-
-
-class User(Base):
+class User(BaseCRUD):
     __tablename__ = 'users'
 
     id: int = Column(Integer, primary_key=True, index=True)
     first_name: str = Column(String(255), nullable=True)
     last_name: str = Column(String(255), nullable=True)
     patronymic: str = Column(String(255), nullable=True)
+    email: str = Column(String(255), nullable=False)
+    password: str = Column(String(255), nullable=False)  # hash
     superuser: bool = Column(Boolean, default=False)
     deleted: bool = Column(Boolean, default=False)
 
 
-class Hospital(Base):
+class Hospital(BaseCRUD):
     __tablename__ = 'hospitals'
 
     id: int = Column(Integer, primary_key=True, index=True)
@@ -120,7 +35,7 @@ class Hospital(Base):
     deleted: bool = Column(Boolean, default=False)
 
 
-class Specialty(Base):
+class Specialty(BaseCRUD):
     __tablename__ = 'specialties'
 
     id: int = Column(Integer, primary_key=True, index=True)
@@ -128,7 +43,7 @@ class Specialty(Base):
     deleted: bool = Column(Boolean, default=False)
 
 
-class Physician(Base):
+class Physician(BaseCRUD):
     __tablename__ = 'physicians'
 
     id: int = Column(Integer, primary_key=True, index=True)
@@ -143,7 +58,7 @@ class Physician(Base):
     deleted: bool = Column(Boolean, default=False)
 
 
-class Condition(Base):
+class Condition(BaseCRUD):
     __tablename__ = 'conditions'
 
     id: int = Column(Integer, primary_key=True, index=True)
@@ -151,7 +66,7 @@ class Condition(Base):
     deleted: bool = Column(Boolean, default=False)
 
 
-class Drug(Base):
+class Drug(BaseCRUD):
     __tablename__ = 'drugs'
 
     id: int = Column(Integer, primary_key=True, index=True)
@@ -159,7 +74,7 @@ class Drug(Base):
     deleted: bool = Column(Boolean, default=False)
 
 
-class Document(Base):
+class Document(BaseCRUD):
     __tablename__ = 'documents'
 
     id: int = Column(Integer, primary_key=True, index=True)
@@ -173,7 +88,7 @@ class Document(Base):
     deleted: bool = Column(Boolean, default=False)
 
 
-class Treatment(Base):
+class Treatment(BaseCRUD):
     __tablename__ = 'treatments'
 
     id: int = Column(Integer, primary_key=True, index=True)
@@ -184,7 +99,7 @@ class Treatment(Base):
     deleted: bool = Column(Boolean, default=False)
 
 
-class Visit(Base):
+class Visit(BaseCRUD):
     __tablename__ = 'visits'
 
     id: int = Column(Integer, primary_key=True, index=True)
@@ -196,7 +111,7 @@ class Visit(Base):
     deleted: bool = Column(Boolean, default=False)
 
 
-class SideEffect(Base):
+class SideEffect(BaseCRUD):
     __tablename__ = 'side_effects'
 
     id: int = Column(Integer, primary_key=True, index=True)

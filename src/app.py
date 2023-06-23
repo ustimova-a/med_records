@@ -98,19 +98,6 @@ def get_items_by_group(id_group: int) -> List[models.Item]:
 
 app.include_router(router)
 
-'''
-Test data
-'''
-group_1 = models.Group(id=1, name='Group 1')
-group_2 = models.Group(id=2, name='Group 2')
-item_1 = models.Item(id=1, name='Item 1', id_group=2,
-                     description='A rather good item')
-item_2 = models.Item(id=2, name='Item 2', id_group=2,
-                     description='A not so good item')
-
-groups = [group_1, group_2]
-items = [item_1, item_2]
-
 
 if __name__ == "__main__":
     config = uvicorn.Config("views:app", port=8000)

@@ -1,2 +1,5 @@
 setenv.sh
 logs/*.log
+*.env
+*.swp
+venv/

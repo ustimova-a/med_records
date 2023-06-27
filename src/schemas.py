@@ -111,10 +111,10 @@ class Document(BaseModel):
     id: int
     date: datetime.datetime
     user_id: int
-    physician_id: int
-    hospital_id: int
-    condition_id: int
-    treatment_id: int
+    physician_id: Optional[int]
+    hospital_id: Optional[int]
+    condition_id: Optional[int]
+    treatment_id: Optional[int]
     source_doc_url: str
 
     class Config:

@@ -68,6 +68,7 @@ async def get_users_list(
 @router.post("/users/{id_user}/documents", response_model=schemas.Document)
 async def create_document(
     *,
+    # id_user: int,  # ?
     file: UploadFile,
     doc_in: schemas.Document,
     db_session: AsyncSession = Depends(get_current_db)

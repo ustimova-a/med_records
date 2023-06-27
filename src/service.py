@@ -30,15 +30,18 @@ async def upload_file(
     file: UploadFile,
     db_session: AsyncSession
 ) -> dict:  # ?
+    try:
+        upload_dir = config.STORAGE_DIR
+        if not os.path.exists(upload_dir):
+            os.makedirs(upload_dir)
 
-    upload_dir = config.STORAGE_DIR
-    if not os.path.exists(upload_dir):
-        os.makedirs(upload_dir)
+        dest_path = os.path.join(upload_dir, file.filename)
+        # logger.debug(dest_path)
 
-    dest_path = os.path.join(upload_dir, file.filename)
-    # logger.debug(dest_path)
+        with open(dest_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
 
-    with open(dest_path, "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
+    except Exception as e:
+        print(e)
 
     return dest_path

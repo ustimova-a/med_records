@@ -5,7 +5,7 @@ from typing import TypeVar
 from sqlalchemy import select
 from sqlalchemy import update
 from sqlalchemy import Column
-from sqlalchemy import String
+from sqlalchemy import Integer
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from fastapi.encoders import jsonable_encoder
@@ -18,7 +18,7 @@ T_BaseCRUD = TypeVar('T_BaseCRUD', bound='BaseCRUD')
 
 class BaseCRUD(Base):
     __abstract__ = True
-    id = Column(String, primary_key=True)
+    id = Column(Integer, primary_key=True)
 
     @classmethod
     async def create(

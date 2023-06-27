@@ -20,14 +20,6 @@ class BaseCRUD(Base):
     __abstract__ = True
     id = Column(String, primary_key=True)
 
-    def __repr__(self):
-        return (
-            f"<{self.__class__.__name__}("
-            f"id={self.id}, "
-            f"name={self.name}, "
-            f")>"
-        )
-
     @classmethod
     async def create(
         cls: Type[T_BaseCRUD],
@@ -41,6 +33,8 @@ class BaseCRUD(Base):
         )
 
         if item is None:
+            if 'date' in cls_in.__dict__ and cls_in.__dict__['date']:
+                cls_in.__dict__['date'] = cls_in.__dict__['date'].replace(tzinfo=None)
             item = cls(**cls_in.__dict__)  # ?
             db_session.add(item)
 
@@ -61,6 +55,9 @@ class BaseCRUD(Base):
         cls_in,
         db_session: AsyncSession
     ) -> T_BaseCRUD:
+
+        if 'date' in cls_in.__dict__ and cls_in.__dict__['date']:
+            cls_in.__dict__['date'] = cls_in.__dict__['date'].replace(tzinfo=None)
 
         query = (
                 update(cls)

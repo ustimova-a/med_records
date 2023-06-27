@@ -33,4 +33,5 @@ DEFAULT_STATIC_DIR = os.path.abspath(os.path.join(
 ))
 STATIC_DIR = config['Application'].get('app_name', DEFAULT_STATIC_DIR)
 
-LOG_DIR = config['Application'].get('logdir', './')
+LOG_DIR = config['Application'].get('log_dir', './')
+STORAGE_DIR = config['Application'].get('storage_dir', './')

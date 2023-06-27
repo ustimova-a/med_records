@@ -24,6 +24,7 @@ class UserRead(BaseModel):
 
 
 class UserCreate(BaseModel):
+    id: int
     first_name: str
     last_name: str
     patronymic: str

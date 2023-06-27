@@ -56,7 +56,7 @@ SessionLocal = sessionmaker(
 
 
 async def get_current_db(request: Request) -> AsyncGenerator[AsyncSession, None]:
-    yield request.state.db
+    # yield request.state.db
 
-    #     async with SessionLocal() as session:
-    #         yield session
+    async with SessionLocal() as session:
+        yield session

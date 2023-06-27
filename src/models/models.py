@@ -9,7 +9,7 @@ from sqlalchemy import DateTime
 from sqlalchemy import ForeignKey
 from sqlalchemy_utils import URLType
 
-from model_crud import BaseCRUD
+from src.models.model_crud import BaseCRUD
 
 
 class User(BaseCRUD):
@@ -20,6 +20,7 @@ class User(BaseCRUD):
     last_name: str = Column(String(255), nullable=True)
     patronymic: str = Column(String(255), nullable=True)
     email: str = Column(String(255), nullable=False)
+    login: str = Column(String(255), nullable=False)
     password: str = Column(String(255), nullable=False)  # hash
     superuser: bool = Column(Boolean, default=False)
     deleted: bool = Column(Boolean, default=False)

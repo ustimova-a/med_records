@@ -6,12 +6,11 @@ from sqlalchemy import select
 from sqlalchemy import update
 from sqlalchemy import Column
 from sqlalchemy import String
-
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from fastapi.encoders import jsonable_encoder
 
-from db import Base
+from src.database import Base
 
 
 T_BaseCRUD = TypeVar('T_BaseCRUD', bound='BaseCRUD')

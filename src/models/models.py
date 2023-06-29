@@ -8,6 +8,7 @@ from sqlalchemy import String
 from sqlalchemy import DateTime
 from sqlalchemy import ForeignKey
 from sqlalchemy_utils import URLType
+from sqlalchemy.orm import relationship
 
 from src.models.model_crud import BaseCRUD
 
@@ -31,7 +32,7 @@ class Hospital(BaseCRUD):
 
     id: int = Column(Integer, primary_key=True, index=True)
     name: str = Column(String(255), nullable=False)
-    website_url: str = Column(URLType(), nullable=True)  # str?
+    website_url: str = Column(URLType(), nullable=True)
     comment: str = Column(String(), nullable=True)
     deleted: bool = Column(Boolean, default=False)
 
@@ -57,6 +58,9 @@ class Physician(BaseCRUD):
     is_recommended: bool = Column(Boolean, default=False, nullable=True)
     comment: str = Column(String(), nullable=True)
     deleted: bool = Column(Boolean, default=False)
+
+    specialty = relationship("Specialty")
+    hospital = relationship("Hospital")
 
 
 class Condition(BaseCRUD):
@@ -85,8 +89,13 @@ class Document(BaseCRUD):
     hospital_id: int = Column(Integer, ForeignKey("hospitals.id"))
     condition_id: int = Column(Integer, ForeignKey("conditions.id"))
     treatment_id: int = Column(Integer, ForeignKey("treatments.id"))
-    source_doc_url: str = Column(URLType(), nullable=True)  # str?
+    source_doc_url: str = Column(URLType(), nullable=True)
     deleted: bool = Column(Boolean, default=False)
+
+    user = relationship("User")
+    physician = relationship("Physician")
+    condition = relationship("Condition")
+    treatment = relationship("Treatment")
 
 
 class Treatment(BaseCRUD):
@@ -98,6 +107,8 @@ class Treatment(BaseCRUD):
     per_day: int = Column(Integer, nullable=True)
     comment: str = Column(String(), nullable=False)
     deleted: bool = Column(Boolean, default=False)
+
+    drug = relationship("Drug")
 
 
 class Visit(BaseCRUD):
@@ -111,6 +122,10 @@ class Visit(BaseCRUD):
     comment: str = Column(String(), nullable=False)
     deleted: bool = Column(Boolean, default=False)
 
+    physician = relationship("Physician")
+    hospital = relationship("Hospital")
+    document = relationship("Document")
+
 
 class SideEffect(BaseCRUD):
     __tablename__ = 'side_effects'
@@ -119,3 +134,6 @@ class SideEffect(BaseCRUD):
     user_id: int = Column(Integer, ForeignKey("users.id"))
     drug_id: int = Column(Integer, ForeignKey("drugs.id"))
     deleted: bool = Column(Boolean, default=False)
+
+    user = relationship("User")
+    drug = relationship("Drug")

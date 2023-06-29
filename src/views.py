@@ -11,7 +11,6 @@ from fastapi import UploadFile
 from sqlalchemy.ext.asyncio import AsyncSession
 
 import src.config as config
-import src.logger as logger
 import src.schemas as schemas
 import src.service as service
 import src.security as security
@@ -68,18 +67,22 @@ async def get_users_list(
 @router.post("/users/{id_user}/documents", response_model=schemas.Document)
 async def create_document(
     *,
-    # id_user: int,  # ?
-    file: UploadFile,
+    id_user: int,
+    # file: UploadFile,
     doc_in: schemas.Document,
     db_session: AsyncSession = Depends(get_current_db)
 ) -> models.Document:
 
-    dest_path = await service.upload_file(file=file, db_session=db_session)
-    print(dest_path)
-    if 'source_doc_url' in doc_in.__dict__:
-        doc_in.source_doc_url = dest_path
+    # dest_path = await service.upload_file(file=file, db_session=db_session)
+    # print(dest_path)
+    # if 'source_doc_url' in doc_in.__dict__:
+    #     doc_in.source_doc_url = dest_path
 
-    doc_description = await models.Document.create(db_session=db_session, cls_in=doc_in)
+    doc_description = await models.Document.create(
+        db_session=db_session,
+        cls_in=doc_in
+    )
+    print(doc_description)
 
     return doc_description
 

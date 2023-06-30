@@ -35,7 +35,7 @@ class BaseCRUD(Base):
         if item is None:
             if 'date' in cls_in.__dict__ and cls_in.__dict__['date']:
                 cls_in.__dict__['date'] = cls_in.__dict__['date'].replace(tzinfo=None)
-            item = cls(**cls_in.__dict__)  # ?
+            item = cls(**cls_in.__dict__)
             db_session.add(item)
 
         if item.deleted:

@@ -6,8 +6,21 @@ from fastapi import status
 from fastapi.security import HTTPBasic
 from fastapi.security import HTTPBasicCredentials
 
+from cryptography.fernet import Fernet
+
 
 security = HTTPBasic()
+FERNET_KEY = b'09FPnNDxYMiYqEvHoyREPeA7c5Y5rEq9Y5wwZBPZVas='
+
+
+def fernet_encrypt(message: str) -> str:
+    b = Fernet(FERNET_KEY).encrypt(message.encode())
+    return b.decode()
+
+
+def fernet_decrypt(payload: str) -> str:
+    b = Fernet(FERNET_KEY).decrypt(payload.encode())
+    return b.decode()
 
 
 async def get_current_username(

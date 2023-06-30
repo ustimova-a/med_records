@@ -44,26 +44,6 @@ async def get_users_list(
 
 # region Document
 
-# @router.post("/users/{id_user}/documents")
-# async def upload_document(
-#     *,
-#     doc: UploadFile,
-#     db_session: AsyncSession = Depends(get_current_db)
-# ) -> dict:  # ?
-
-#     upload_dir = config.STORAGE_DIR
-#     if not os.path.exists(upload_dir):
-#         os.makedirs(upload_dir)
-
-#     dest_path = os.path.join(upload_dir, doc.filename)
-#     # logger.debug(dest_path)
-
-#     with open(dest_path, "wb") as buffer:
-#         shutil.copyfileobj(doc.file, buffer)
-
-#     return doc
-
-
 @router.post("/users/{id_user}/documents", response_model=schemas.Document)
 async def create_document(
     *,
@@ -77,6 +57,7 @@ async def create_document(
     # print(dest_path)
     # if 'source_doc_url' in doc_in.__dict__:
     #     doc_in.source_doc_url = dest_path
+    print(doc_in)
 
     doc_description = await models.Document.create(
         db_session=db_session,

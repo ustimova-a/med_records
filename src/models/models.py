@@ -8,7 +8,6 @@ from sqlalchemy import Float
 from sqlalchemy import String
 from sqlalchemy import DateTime
 from sqlalchemy import ForeignKey
-from sqlalchemy_utils import URLType
 from sqlalchemy.orm import relationship
 
 from src.models.model_crud import BaseCRUD
@@ -27,8 +26,12 @@ class User(BaseCRUD):
     superuser: bool = Column(Boolean, default=False)
     deleted: bool = Column(Boolean, default=False)
 
-    documents: List['Document'] = relationship(back_populates='user')
-    side_effects: List['SideEffect'] = relationship(back_populates='user')
+    documents = relationship(
+        'Document', back_populates='user'
+    )
+    side_effects = relationship(
+        'SideEffect', back_populates='user'
+    )
 
 
 class Hospital(BaseCRUD):
@@ -36,13 +39,19 @@ class Hospital(BaseCRUD):
 
     id: int = Column(Integer, primary_key=True, index=True)
     name: str = Column(String(255), nullable=False)
-    website_url: str = Column(URLType(), nullable=True)
+    website_url: str = Column(String(), nullable=True)
     comment: str = Column(String(), nullable=True)
     deleted: bool = Column(Boolean, default=False)
 
-    physicians: List['Physician'] = relationship(back_populates='hospital')
-    documents: List['Document'] = relationship(back_populates='hospital')
-    visits: List['Visit'] = relationship(back_populates='hospital')
+    physicians = relationship(
+        'Physician', back_populates='hospital'
+    )
+    documents = relationship(
+        'Document', back_populates='hospital'
+    )
+    visits = relationship(
+        'Visit', back_populates='hospital'
+    )
 
 
 class Specialty(BaseCRUD):
@@ -52,7 +61,9 @@ class Specialty(BaseCRUD):
     name: str = Column(String(255), nullable=False)
     deleted: bool = Column(Boolean, default=False)
 
-    physicians: List['Physician'] = relationship(back_populates='specialty')
+    physicians = relationship(
+        'Physician', back_populates='specialty'
+    )
 
 
 class Physician(BaseCRUD):
@@ -68,13 +79,21 @@ class Physician(BaseCRUD):
     deleted: bool = Column(Boolean, default=False)
 
     specialty_id: int = Column(Integer, ForeignKey("specialties.id"))
-    specialty: 'Specialty' = relationship(back_populates='physicians')
+    specialty = relationship(
+        'Specialty', back_populates='physicians'
+    )
 
     hospital_id: int = Column(Integer, ForeignKey("hospitals.id"))
-    hospital: 'Hospital' = relationship(back_populates='physicians')
+    hospital = relationship(
+        'Hospital', back_populates='physicians'
+    )
 
-    documents: List['Document'] = relationship(back_populates='physician')
-    visits: List['Visit'] = relationship(back_populates='physician')
+    documents = relationship(
+        'Document', back_populates='physician'
+    )
+    visits = relationship(
+        'Visit', back_populates='physician'
+    )
 
 
 class Condition(BaseCRUD):
@@ -84,7 +103,9 @@ class Condition(BaseCRUD):
     name: str = Column(String(255), nullable=False)
     deleted: bool = Column(Boolean, default=False)
 
-    documents: 'Document' = relationship(back_populates='condition')
+    documents = relationship(
+        'Document', back_populates='condition'
+    )
 
 
 class Drug(BaseCRUD):
@@ -94,8 +115,12 @@ class Drug(BaseCRUD):
     name: str = Column(String(255), nullable=False)
     deleted: bool = Column(Boolean, default=False)
 
-    treatment: 'Treatment' = relationship(back_populates='drug')
-    side_effects: List['SideEffect'] = relationship(back_populates='drug')
+    treatment = relationship(
+        'Treatment', back_populates='drug'
+    )
+    side_effects = relationship(
+        'SideEffect', back_populates='drug'
+    )
 
 
 class Document(BaseCRUD):
@@ -103,25 +128,37 @@ class Document(BaseCRUD):
 
     id: int = Column(Integer, primary_key=True, index=True)
     date: datetime.datetime = Column(DateTime, nullable=True)
-    source_doc_url: str = Column(URLType(), nullable=True)
+    source_doc_url: str = Column(String(), nullable=True)
     deleted: bool = Column(Boolean, default=False)
 
     user_id: int = Column(Integer, ForeignKey("users.id"))
-    user: 'User' = relationship(back_populates='documents')
+    user = relationship(
+        'User', back_populates='documents'
+    )
 
     physician_id: int = Column(Integer, ForeignKey("physicians.id"))
-    physician: 'Physician' = relationship(back_populates='documents')
+    physician = relationship(
+        'Physician', back_populates='documents'
+    )
 
     hospital_id: int = Column(Integer, ForeignKey("hospitals.id"))
-    hospital: 'Hospital' = relationship(back_populates='documents')
+    hospital = relationship(
+        'Hospital', back_populates='documents'
+    )
 
     condition_id: int = Column(Integer, ForeignKey("conditions.id"))
-    condition: 'Condition' = relationship(back_populates='documents')
+    condition = relationship(
+        'Condition', back_populates='documents'
+    )
 
     treatment_id: int = Column(Integer, ForeignKey("treatments.id"))
-    treatment: List['Treatment'] = relationship(back_populates='documents')
+    treatment = relationship(
+        'Treatment', back_populates='documents'
+    )
 
-    visits: 'Visit' = relationship(back_populates='document')
+    visits = relationship(
+        'Visit', back_populates='document'
+    )
 
 
 class Treatment(BaseCRUD):
@@ -134,9 +171,13 @@ class Treatment(BaseCRUD):
     deleted: bool = Column(Boolean, default=False)
 
     drug_id: int = Column(Integer, ForeignKey("drugs.id"))
-    drug: 'Drug' = relationship(back_populates='treatment')
+    drug = relationship(
+        'Drug', back_populates='treatment'
+    )
 
-    documents: 'Document' = relationship(back_populates='treatment')
+    documents = relationship(
+        'Document', back_populates='treatment'
+    )
 
 
 class Visit(BaseCRUD):
@@ -148,13 +189,19 @@ class Visit(BaseCRUD):
     deleted: bool = Column(Boolean, default=False)
 
     physician_id: int = Column(Integer, ForeignKey("physicians.id"))
-    physician: 'Physician' = relationship(back_populates='visits')
+    physician = relationship(
+        'Physician', back_populates='visits'
+    )
 
     hospital_id: int = Column(Integer, ForeignKey("hospitals.id"))
-    hospital: 'Hospital' = relationship(back_populates='visits')
+    hospital = relationship(
+        'Hospital', back_populates='visits'
+    )
 
     document_id: int = Column(Integer, ForeignKey("documents.id"))
-    document: 'Document' = relationship(back_populates='visits')
+    document = relationship(
+        'Document', back_populates='visits'
+    )
 
 
 class SideEffect(BaseCRUD):
@@ -165,7 +212,11 @@ class SideEffect(BaseCRUD):
     deleted: bool = Column(Boolean, default=False)
 
     user_id: int = Column(Integer, ForeignKey("users.id"))
-    user: 'User' = relationship(back_populates='side_effects')
+    user = relationship(
+        'User', back_populates='side_effects'
+    )
 
     drug_id: int = Column(Integer, ForeignKey("drugs.id"))
-    drug: 'Drug' = relationship(back_populates='side_effects')
+    drug = relationship(
+        'Drug', back_populates='side_effects'
+    )

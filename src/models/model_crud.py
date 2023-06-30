@@ -8,7 +8,7 @@ from sqlalchemy import Column
 from sqlalchemy import Integer
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi.encoders import jsonable_encoder
+# from fastapi.encoders import jsonable_encoder
 
 from src.database import Base
 

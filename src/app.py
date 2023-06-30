@@ -6,7 +6,11 @@ from typing import Optional
 from fastapi import Depends
 from fastapi import FastAPI
 from fastapi import APIRouter
+from fastapi import Request
+from fastapi import status
+from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.exceptions import RequestValidationError
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -20,6 +24,18 @@ from src.views import router
 from src.database import get_current_db
 
 app = FastAPI()
+
+# Workaround to debug `422 Unprocessable Entity` error
+# import logging
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    exc_str = f'{exc}'.replace('\n', ' ').replace('   ', ' ')
+    print(f"{request}: {exc_str}")
+    content = {'status_code': 10422, 'message': exc_str, 'data': None}
+    return JSONResponse(content=content, status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
+# workaround end
 
 # app.mount("/", StaticFiles(directory=config.STATIC_DIR), name="app")
 

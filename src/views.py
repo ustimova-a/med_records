@@ -7,6 +7,7 @@ from typing import Optional
 from fastapi import Depends
 from fastapi import APIRouter
 from fastapi import UploadFile
+from fastapi.encoders import jsonable_encoder
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -30,7 +31,7 @@ async def login(username: str = Depends(security.get_current_username)):
 # region User
 
 @router.get("/users", response_model=List[schemas.UserRead])
-async def get_users_list(
+async def get_all_users(
     *,
     db_session: AsyncSession = Depends(get_current_db)
 ) -> List[models.User]:
@@ -48,16 +49,15 @@ async def get_users_list(
 async def create_document(
     *,
     id_user: int,
-    # file: UploadFile,
+    file: UploadFile,
     doc_in: schemas.Document,
     db_session: AsyncSession = Depends(get_current_db)
 ) -> models.Document:
 
-    # dest_path = await service.upload_file(file=file, db_session=db_session)
-    # print(dest_path)
-    # if 'source_doc_url' in doc_in.__dict__:
-    #     doc_in.source_doc_url = dest_path
-    print(doc_in)
+    dest_path = await service.upload_file(file=file)
+    print(dest_path)
+    if 'source_doc_url' in doc_in.__dict__:
+        doc_in.source_doc_url = str(dest_path)
 
     doc_description = await models.Document.create(
         db_session=db_session,
@@ -65,6 +65,6 @@ async def create_document(
     )
     print(doc_description)
 
-    return doc_description
+    return schemas.Document(**jsonable_encoder(doc_description))
 
 # endregion

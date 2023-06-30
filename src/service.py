@@ -2,6 +2,8 @@ import os
 import jwt
 import shutil
 
+from typing import Any
+
 from fastapi import Depends
 from fastapi import status
 from fastapi import UploadFile
@@ -74,7 +76,7 @@ async def get_file(request: Request) -> FileResponse:
 async def upload_file(
     file: UploadFile,
     db_session: AsyncSession
-) -> dict:  # ?
+) -> Any:
     try:
         upload_dir = config.STORAGE_DIR
         if not os.path.exists(upload_dir):

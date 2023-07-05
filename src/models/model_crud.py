@@ -8,8 +8,7 @@ from sqlalchemy import Column
 from sqlalchemy import Integer
 from sqlalchemy.ext.asyncio import AsyncSession
 
-# from fastapi.encoders import jsonable_encoder
-
+from src.logger import logger
 from src.database import Base
 
 
@@ -27,71 +26,48 @@ class BaseCRUD(Base):
         db_session: AsyncSession
     ) -> T_BaseCRUD:
 
-        item = await cls.get_by_id(
-            db_session=db_session,
-            id=cls_in.id
-        )
-
-        if item is None:
+        try:
             if 'date' in cls_in.__dict__ and cls_in.__dict__['date']:
                 cls_in.__dict__['date'] = cls_in.__dict__['date'].replace(tzinfo=None)
             item = cls(**cls_in.__dict__)
             db_session.add(item)
-
-        if item.deleted:
-            item.deleted = False
-
-        try:
             await db_session.commit()
+
         except Exception as e:
             await db_session.rollback()
-            print(e)  # logger
+            logger.error(e)
 
         return item
 
     @classmethod
     async def update(
         cls: Type[T_BaseCRUD],
+        id: int,
         cls_in,
         db_session: AsyncSession
     ) -> T_BaseCRUD:
 
-        if 'date' in cls_in.__dict__ and cls_in.__dict__['date']:
-            cls_in.__dict__['date'] = cls_in.__dict__['date'].replace(tzinfo=None)
-
-        query = (
-                update(cls)
-                .where(cls.id == cls_in.id)
-                .values(**cls_in.__dict__)
-                # .execution_options(synchronize_session="fetch")
-            )
-        await db_session.execute(query)
-
-        # item = await cls.get_by_id(
-        #     db_session=db_session,
-        #     id=cls_in.id
-        # )
-        # prev_data = jsonable_encoder(item)
-
-        # if isinstance(cls_in, dict):
-        #     update_data = cls_in
-        # else:
-        #     update_data = cls_in.dict(exclude_unset=True)
-
-        # for field in prev_data:
-        #     if field in update_data:
-        #         setattr(item, field, update_data[field])
-
         try:
+            if 'date' in cls_in.__dict__ and cls_in.__dict__['date']:
+                cls_in.__dict__['date'] = cls_in.__dict__['date'].replace(tzinfo=None)
+
+            query = (
+                    update(cls)
+                    .where(cls.id == id)
+                    .values(**cls_in.__dict__)
+                    # .execution_options(synchronize_session="fetch")
+                )
+            await db_session.execute(query)
             await db_session.commit()
+
         except Exception as e:
             await db_session.rollback()
-            print(e)  # logger
+            logger.error(e)
 
         return await cls.get_by_id(
             db_session=db_session,
-            id=cls_in.id
-        )  # item
+            id=id
+        )
 
     @classmethod
     async def get_by_id(
@@ -100,9 +76,13 @@ class BaseCRUD(Base):
         db_session: AsyncSession
     ) -> T_BaseCRUD:
 
-        result = await db_session.execute(
-            select(cls).filter(cls.id == id)
-        )
+        try:
+            result = await db_session.execute(
+                select(cls).filter(cls.id == id)
+            )
+        except Exception as e:
+            logger.error(e)
+
         return result.scalars().first()
 
     @classmethod
@@ -121,15 +101,14 @@ class BaseCRUD(Base):
         db_session: AsyncSession
     ) -> T_BaseCRUD:
 
-        item = await db_session.execute(
-            select(cls).filter(cls.id == id)
-        )
-        item.deleted = True
-
         try:
+            item = await cls.get_by_id(
+                db_session=db_session,
+                id=id
+            )
+            item.deleted = True
             await db_session.commit()
+
         except Exception as e:
             await db_session.rollback()
-            print(e)  # logger
-
-        return item.scalars().first()
+            logger.error(e)

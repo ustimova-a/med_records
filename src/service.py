@@ -1,6 +1,7 @@
 import os
 import jwt
 import shutil
+import datetime
 
 from typing import Any
 
@@ -17,6 +18,7 @@ from pydantic import ValidationError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 import src.config as config
+from src.logger import logger
 
 
 # async def get_current_user(
@@ -74,21 +76,24 @@ async def get_file(request: Request) -> FileResponse:
 
 
 async def upload_file(
-    file: UploadFile,
-    db_session: AsyncSession
+    file: UploadFile
 ) -> Any:
     try:
+        # upload_dir = f'{config.STORAGE_DIR}{datetime.datetime.now().strftime("%d-%m-%Y")}/'
         upload_dir = config.STORAGE_DIR
         if not os.path.exists(upload_dir):
             os.makedirs(upload_dir)
 
         dest_path = os.path.join(upload_dir, file.filename)
-        # logger.debug(dest_path)
+        logger.debug(f'File stored at: {dest_path}')
 
-        with open(dest_path, "wb") as buffer:
-            shutil.copyfileobj(file.file, buffer)
+        with open(dest_path, "wb") as f:
+            f.write(await file.read())
+            # shutil.copyfileobj(file.file, buffer)
 
     except Exception as e:
-        print(e)
+        logger.error(e)
+    # except (UniqueViolationError, IntegrityError) as e:
+    #     logger.error(f'File with such name already exists: {e}')
 
     return dest_path

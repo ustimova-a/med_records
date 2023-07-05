@@ -24,14 +24,13 @@ class UserRead(BaseModel):
 
 
 class UserCreate(BaseModel):
-    id: int
     first_name: str
     last_name: str
     patronymic: str
     email: str
     login: str
     password: str
-    is_super_admin: Optional[bool] = False
+    superuser: Optional[bool] = False
 
 # endregion
 
@@ -39,7 +38,7 @@ class UserCreate(BaseModel):
 # region Hospital
 
 class Hospital(BaseModel):
-    id: int
+    # id: int
     name: str
     website_url: str
     comment: str
@@ -53,7 +52,7 @@ class Hospital(BaseModel):
 # region Specialty
 
 class Specialty(BaseModel):
-    id: int
+    # id: int
     name: str
 
     class Config:
@@ -65,7 +64,7 @@ class Specialty(BaseModel):
 # region Physician
 
 class Physician(BaseModel):
-    id: int
+    # id: int
     first_name: str
     last_name: str
     patronymic: str
@@ -84,7 +83,7 @@ class Physician(BaseModel):
 # region Condition
 
 class Condition(BaseModel):
-    id: int
+    # id: int
     name: str
 
     class Config:
@@ -96,7 +95,7 @@ class Condition(BaseModel):
 # region Drug
 
 class Drug(BaseModel):
-    id: int
+    # id: int
     name: str
 
     class Config:
@@ -108,14 +107,14 @@ class Drug(BaseModel):
 # region Document
 
 class Document(BaseModel):
-    id: int
+    # id: int
     date: datetime.datetime
     user_id: int
     physician_id: Optional[int]
     hospital_id: Optional[int]
     condition_id: Optional[int]
     treatment_id: Optional[int]
-    source_doc_url: str
+    source_doc_url: Optional[str]
 
     class Config:
         orm_mode = True
@@ -126,7 +125,7 @@ class Document(BaseModel):
 # region Treatment
 
 class Treatment(BaseModel):
-    id: int
+    # id: int
     drug_id: int
     dosage: float
     per_day: int
@@ -141,7 +140,7 @@ class Treatment(BaseModel):
 # region Visit
 
 class Visit(BaseModel):
-    id: int
+    # id: int
     date: datetime.datetime
     physician_id: int
     hospital_id: int
@@ -157,7 +156,7 @@ class Visit(BaseModel):
 # region SideEffect
 
 class SideEffect(BaseModel):
-    id: int
+    # id: int
     user_id: int
     drug_id: int
 

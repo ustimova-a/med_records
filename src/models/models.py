@@ -128,7 +128,7 @@ class Document(BaseCRUD):
 
     id: int = Column(Integer, primary_key=True, index=True)
     date: datetime.datetime = Column(DateTime, nullable=True)
-    source_doc_url: str = Column(String(), nullable=True)
+    source_doc_url: str = Column(String(), unique=True, nullable=False)
     deleted: bool = Column(Boolean, default=False)
 
     user_id: int = Column(Integer, ForeignKey("users.id"))

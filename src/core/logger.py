@@ -3,7 +3,7 @@ import sys
 import logging
 from logging.handlers import TimedRotatingFileHandler
 
-import src.config as config
+import src.core.config as config
 
 
 # get logger

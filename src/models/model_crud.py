@@ -8,8 +8,8 @@ from sqlalchemy import Column
 from sqlalchemy import Integer
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.logger import logger
-from src.database import Base
+from src.core.logger import logger
+from src.core.database import Base
 
 
 T_BaseCRUD = TypeVar('T_BaseCRUD', bound='BaseCRUD')
@@ -32,6 +32,7 @@ class BaseCRUD(Base):
             item = cls(**cls_in.__dict__)
             db_session.add(item)
             await db_session.commit()
+            logger.debug(f'Item created: {item}')
 
         except Exception as e:
             await db_session.rollback()
@@ -59,6 +60,7 @@ class BaseCRUD(Base):
                 )
             await db_session.execute(query)
             await db_session.commit()
+            logger.debug(f'Item updated: {cls}')
 
         except Exception as e:
             await db_session.rollback()
@@ -80,6 +82,7 @@ class BaseCRUD(Base):
             result = await db_session.execute(
                 select(cls).filter(cls.id == id)
             )
+            logger.debug(f'Item provided: {result}')
         except Exception as e:
             logger.error(e)
 
@@ -92,6 +95,7 @@ class BaseCRUD(Base):
     ) -> List[T_BaseCRUD]:
 
         result = await db_session.execute(select(cls))
+        logger.debug(f'All items: {result}')
         return result.scalars().all()
 
     @classmethod
@@ -108,6 +112,7 @@ class BaseCRUD(Base):
             )
             item.deleted = True
             await db_session.commit()
+            logger.debug(f'Item deleted: {item}')
 
         except Exception as e:
             await db_session.rollback()

@@ -14,14 +14,14 @@ from fastapi.exceptions import RequestValidationError
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-import src.config as config
+import src.core.config as config
 import src.schemas as schemas
 import src.service as service
-import src.security as security
+import src.core.security as security
 import src.models.models as models
 
 from src.views import router
-from src.database import get_current_db
+from src.core.database import get_current_db
 
 app = FastAPI()
 

@@ -13,7 +13,7 @@ import src.users.schemas as u_schemas
 import src.users.service as u_service
 import src.users.models as u_models
 
-from src.app import templates
+import src.app
 from src.logger import logger
 from src.database import get_current_db
 
@@ -36,11 +36,7 @@ async def get_all_users(
 
     users = await u_models.User.get_all(db_session=db_session)
 
-    # template = template_env.get_template("get_all_users.html")
-    # template.render(users=users)
-
-    # return HTMLResponse(content=html_content, status_code=200)
-    return templates.TemplateResponse(
+    return src.app.templates.TemplateResponse(
         "get_all_users.html",
         {"request": request, "users": users}
     )
@@ -89,7 +85,7 @@ async def delete_user(
     *,
     user_id: int,
     db_session: AsyncSession = Depends(get_current_db)
-) -> u_models.User:
+) -> u_schemas.UserRead:
 
     user = await u_models.User.delete(db_session=db_session, id=user_id)
     return user

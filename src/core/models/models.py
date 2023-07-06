@@ -10,28 +10,7 @@ from sqlalchemy import DateTime
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
-from src.models.model_crud import BaseCRUD
-
-
-class User(BaseCRUD):
-    __tablename__ = 'users'
-
-    id: int = Column(Integer, primary_key=True, index=True)
-    first_name: str = Column(String(255), nullable=True)
-    last_name: str = Column(String(255), nullable=True)
-    patronymic: str = Column(String(255), nullable=True)
-    email: str = Column(String(255), nullable=False)
-    login: str = Column(String(255), nullable=False)
-    password: str = Column(String(255), nullable=False)  # hash
-    superuser: bool = Column(Boolean, default=False)
-    deleted: bool = Column(Boolean, default=False)
-
-    documents = relationship(
-        'Document', back_populates='user'
-    )
-    side_effects = relationship(
-        'SideEffect', back_populates='user'
-    )
+from src.core.models.model_crud import BaseCRUD
 
 
 class Hospital(BaseCRUD):
@@ -120,44 +99,6 @@ class Drug(BaseCRUD):
     )
     side_effects = relationship(
         'SideEffect', back_populates='drug'
-    )
-
-
-class Document(BaseCRUD):
-    __tablename__ = 'documents'
-
-    id: int = Column(Integer, primary_key=True, index=True)
-    date: datetime.datetime = Column(DateTime, nullable=True)
-    source_doc_url: str = Column(String(), unique=True, nullable=False)
-    deleted: bool = Column(Boolean, default=False)
-
-    user_id: int = Column(Integer, ForeignKey("users.id"))
-    user = relationship(
-        'User', back_populates='documents'
-    )
-
-    physician_id: int = Column(Integer, ForeignKey("physicians.id"))
-    physician = relationship(
-        'Physician', back_populates='documents'
-    )
-
-    hospital_id: int = Column(Integer, ForeignKey("hospitals.id"))
-    hospital = relationship(
-        'Hospital', back_populates='documents'
-    )
-
-    condition_id: int = Column(Integer, ForeignKey("conditions.id"))
-    condition = relationship(
-        'Condition', back_populates='documents'
-    )
-
-    treatment_id: int = Column(Integer, ForeignKey("treatments.id"))
-    treatment = relationship(
-        'Treatment', back_populates='documents'
-    )
-
-    visits = relationship(
-        'Visit', back_populates='document'
     )
 
 

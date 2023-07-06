@@ -1,47 +1,32 @@
 import uvicorn
 
-from typing import List
-from typing import Optional
-
-from fastapi import Depends
 from fastapi import FastAPI
 from fastapi import APIRouter
-from fastapi import Request
-from fastapi import status
-from fastapi.responses import JSONResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.exceptions import RequestValidationError
 
-from sqlalchemy.ext.asyncio import AsyncSession
+import src.documents.service as doc_service
 
-import src.core.config as config
-import src.schemas as schemas
-import src.service as service
-import src.core.security as security
-import src.models.models as models
+from src.core.views import router as core_router
+from src.documents.views import router as doc_router
+from src.users.views import router as user_router
 
-from src.views import router
 from src.core.database import get_current_db
+
 
 app = FastAPI()
 
-# Workaround to debug `422 Unprocessable Entity` error
-# import logging
+app.add_route('/storage/{filename:path}', doc_service.get_file, ['GET'])
 
 
-# @app.exception_handler(RequestValidationError)
-# async def validation_exception_handler(request: Request, exc: RequestValidationError):
-#     exc_str = f'{exc}'.replace('\n', ' ').replace('   ', ' ')
-#     print(f"{request}: {exc_str}")
-#     content = {'status_code': 10422, 'message': exc_str, 'data': None}
-#     return JSONResponse(content=content, status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
-# workaround end
+# region router
 
-# app.mount("/", StaticFiles(directory=config.STATIC_DIR), name="app")
-
-app.add_route('/storage/{filename:path}', service.get_file, ['GET'])
-
+router = APIRouter()
 app.include_router(router)
+
+app.include_router(core_router)
+app.include_router(doc_router)
+app.include_router(user_router)
+
+# endregion
 
 
 if __name__ == "__main__":

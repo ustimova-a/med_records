@@ -15,8 +15,8 @@ import src.documents.schemas as doc_schemas
 import src.documents.service as doc_service
 import src.documents.models as doc_models
 
-from src.core.logger import logger
-from src.core.database import get_current_db
+from src.logger import logger
+from src.database import get_current_db
 
 
 # router = APIRouter(dependencies=[Depends(security.get_current_username)])

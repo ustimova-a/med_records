@@ -1,19 +1,21 @@
 from typing import List
 
 from fastapi import Depends
+from fastapi import Request
 from fastapi import APIRouter
 from fastapi.responses import HTMLResponse
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+import src.security as security
 import src.core.config as config
 import src.users.schemas as u_schemas
 import src.users.service as u_service
-import src.core.security as security
 import src.users.models as u_models
 
-from src.core.logger import logger
-from src.core.database import get_current_db
+from src.app import templates
+from src.logger import logger
+from src.database import get_current_db
 
 
 # router = APIRouter(dependencies=[Depends(security.get_current_username)])
@@ -25,27 +27,23 @@ router = APIRouter(
 # region User
 
 
-@router.get("/", response_model=List[u_schemas.UserRead])
+@router.get("/", response_class=HTMLResponse)
 async def get_all_users(
     *,
+    request: Request,
     db_session: AsyncSession = Depends(get_current_db)
-) -> List[u_models.User]:
+) -> HTMLResponse:
 
     users = await u_models.User.get_all(db_session=db_session)
 
-    # html_content = """
-    #     <html>
-    #         <head>
-    #             <title>Users</title>
-    #         </head>
-    #         <body>
-    #             <h1>Users: {{users}}</h1>
-    #         </body>
-    #     </html>
-    # """
+    # template = template_env.get_template("get_all_users.html")
+    # template.render(users=users)
 
     # return HTMLResponse(content=html_content, status_code=200)
-    return users
+    return templates.TemplateResponse(
+        "get_all_users.html",
+        {"request": request, "users": users}
+    )
 
 
 @router.post("/", response_model=u_schemas.UserRead)

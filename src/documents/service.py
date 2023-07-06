@@ -11,7 +11,7 @@ from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.ext.asyncio import AsyncSession
 
 import src.core.config as config
-from src.core.logger import logger
+from src.logger import logger
 
 
 async def get_file(request: Request) -> FileResponse:

@@ -15,14 +15,14 @@ from fastapi.encoders import jsonable_encoder
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+import src.security as security
 import src.core.config as config
 import src.core.schemas as schemas
 import src.core.service as service
-import src.core.security as security
 import src.core.models.models as models
 
-from src.core.logger import logger
-from src.core.database import get_current_db
+from src.logger import logger
+from src.database import get_current_db
 
 
 # router = APIRouter(dependencies=[Depends(security.get_current_username)])

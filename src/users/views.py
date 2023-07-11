@@ -4,6 +4,7 @@ from fastapi import Depends
 from fastapi import Request
 from fastapi import APIRouter
 from fastapi.responses import HTMLResponse
+from fastapi.encoders import jsonable_encoder
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -12,6 +13,8 @@ import src.core.config as config
 import src.users.schemas as u_schemas
 import src.users.service as u_service
 import src.users.models as u_models
+
+from src.documents.schemas import Document
 
 import src.app
 from src.logger import logger
@@ -36,10 +39,12 @@ async def get_all_users(
 
     users = await u_models.User.get_all(db_session=db_session)
 
-    return src.app.templates.TemplateResponse(
-        "get_all_users.html",
-        {"request": request, "users": users}
-    )
+    # return src.app.templates.TemplateResponse(
+    #     "get_all_users.html",
+    #     {"request": request, "users": users}
+    # )
+
+    return users
 
 
 @router.post("/", response_model=u_schemas.UserRead)
@@ -91,3 +96,17 @@ async def delete_user(
     return user
 
 # endregion
+
+
+@router.get("/{user_id}/documents/", response_model=List[Document])
+async def get_users_docs(
+    *,
+    user_id: int,
+    db_session: AsyncSession = Depends(get_current_db)
+) -> List[Document]:
+
+    result = await u_service.get_users_docs(
+        user_id=user_id,
+        db_session=db_session
+    )
+    return [Document(**jsonable_encoder(doc)) for doc in result]

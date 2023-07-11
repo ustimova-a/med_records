@@ -11,6 +11,7 @@ from fastapi.templating import Jinja2Templates
 import src.documents.service as doc_service
 
 from src.core.views import router as core_router
+from src.core.auth.views import router as auth_router
 from src.documents.views import router as doc_router
 from src.users.views import router as user_router
 
@@ -28,6 +29,7 @@ app.include_router(router)
 app.include_router(core_router)
 app.include_router(doc_router)
 app.include_router(user_router)
+app.include_router(auth_router)
 
 # endregion
 

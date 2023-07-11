@@ -6,6 +6,7 @@ from fastapi import Depends
 from fastapi import APIRouter
 from fastapi import UploadFile
 from fastapi import HTTPException
+from fastapi.requests import Request
 from fastapi.encoders import jsonable_encoder
 
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -26,8 +27,6 @@ router = APIRouter(
 )
 
 
-# region Document
-
 @router.post("/", response_model=doc_schemas.Document)
 async def create_document(
     *,
@@ -41,7 +40,10 @@ async def create_document(
     db_session: AsyncSession = Depends(get_current_db)
 ) -> doc_schemas.Document:
 
-    dest_path = await doc_service.upload_file(file=file, file_date=file_date)
+    dest_path = await doc_service.upload_file(
+        file=file,
+        file_date=file_date
+    )
 
     doc_in = doc_schemas.Document(
         date=datetime.datetime.strptime(file_date, '%d.%m.%Y'),
@@ -59,4 +61,22 @@ async def create_document(
 
     return doc_schemas.Document(**jsonable_encoder(doc_description))
 
-# endregion
+
+@router.get("/{id_doc}", response_model=doc_schemas.Document)
+async def get_document_by_id(
+    *,
+    id_doc: int,
+    request: Request,
+    db_session: AsyncSession = Depends(get_current_db)
+) -> doc_schemas.Document:
+
+    result = await doc_models.Document.get_by_id(
+        db_session=db_session,
+        id=id_doc
+    )
+    file = await doc_service.get_file(
+        request=request,
+        url=result.source_doc_url
+    )
+
+    return result

@@ -14,9 +14,13 @@ import src.core.config as config
 from src.logger import logger
 
 
-async def get_file(request: Request) -> FileResponse:
+async def get_file(
+    request: Request,
+    url: str
+) -> FileResponse:
 
-    file = os.path.join(config.STORAGE_DIR, request.path_params['filename'])
+    request.path_params['filename'] = url
+    file = os.path.join(request.path_params['filename'])
 
     if not os.path.isfile(file):
         raise HTTPException(status_code=404, detail="File not found")
@@ -34,7 +38,6 @@ async def upload_file(
     file_date: str
 ) -> Any:
     try:
-        # upload_dir = f'{config.STORAGE_DIR}{datetime.datetime.now().strftime("%d-%m-%Y")}/'
         upload_dir = config.STORAGE_DIR
         if not os.path.exists(upload_dir):
             os.makedirs(upload_dir)

@@ -6,23 +6,23 @@ Author: exrofol
 from typing import Any
 from typing import Union
 
-from fastapi import APIRouter
 from fastapi import Depends
-from fastapi import HTTPException
 from fastapi import Request
+from fastapi import APIRouter
+from fastapi import HTTPException
 
+from starlette.responses import Response
+from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi.security import OAuth2PasswordRequestForm
 
-from sqlalchemy.ext.asyncio import AsyncSession
-from starlette.responses import Response
-from src.users.service import get_current_user
+import src.core.auth.schemas as auth_schemas
 
-from src.database import get_current_db
-from src.security import verify_password
-from src.core.auth import schemas as auth_schemas
+from src.core.database import get_current_db
+from src.core.security import verify_password
 
 from src.users.models import User
 from src.users.models import Session
+from src.users.service import get_current_user
 
 
 router = APIRouter(tags=["auth"])
@@ -33,7 +33,7 @@ async def login(
     *,
     request: Request,
     db_session: AsyncSession = Depends(get_current_db),
-    form_data: OAuth2PasswordRequestForm = Depends(),
+    form_data: OAuth2PasswordRequestForm = Depends()
 ) -> Any:
     """
     Метод авторизации на сервере.

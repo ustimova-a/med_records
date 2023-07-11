@@ -5,22 +5,20 @@ from fastapi import Form
 from fastapi import Depends
 from fastapi import APIRouter
 from fastapi import UploadFile
-from fastapi import HTTPException
 from fastapi.requests import Request
 from fastapi.encoders import jsonable_encoder
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-import src.core.config as config
 import src.documents.schemas as doc_schemas
 import src.documents.service as doc_service
 import src.documents.models as doc_models
 
-from src.logger import logger
-from src.database import get_current_db
+from src.users.models import User
+from src.core.database import get_current_db
+from src.users.service import get_current_user
 
 
-# router = APIRouter(dependencies=[Depends(security.get_current_username)])
 router = APIRouter(
     prefix="/documents",
     tags=["documents"]
@@ -37,7 +35,8 @@ async def create_document(
     # hospital_id: Optional[int] = Form(),
     # condition_id: Optional[int] = Form(),
     # treatment_id: Optional[int] = Form(),
-    db_session: AsyncSession = Depends(get_current_db)
+    db_session: AsyncSession = Depends(get_current_db),
+    current_user: User = Depends(get_current_user)
 ) -> doc_schemas.Document:
 
     dest_path = await doc_service.upload_file(
@@ -67,7 +66,8 @@ async def get_document_by_id(
     *,
     id_doc: int,
     request: Request,
-    db_session: AsyncSession = Depends(get_current_db)
+    db_session: AsyncSession = Depends(get_current_db),
+    current_user: User = Depends(get_current_user)
 ) -> doc_schemas.Document:
 
     result = await doc_models.Document.get_by_id(
@@ -80,3 +80,34 @@ async def get_document_by_id(
     )
 
     return result
+
+
+@router.put("/{id_doc}/", response_model=doc_schemas.Document)
+async def update_document(
+    *,
+    id_doc: int,
+    doc_in: doc_schemas.Document,
+    db_session: AsyncSession = Depends(get_current_db),
+    current_user: User = Depends(get_current_user)
+) -> doc_schemas.Document:
+
+    doc = await doc_models.Document.update(
+        db_session=db_session,
+        id=id_doc,
+        cls_in=doc_in
+    )
+    return doc
+
+
+@router.delete("/{id_doc}/")
+async def delete_document(
+    *,
+    id_doc: int,
+    db_session: AsyncSession = Depends(get_current_db),
+    current_user: User = Depends(get_current_user)
+) -> None:
+
+    await doc_models.Document.delete(
+        db_session=db_session,
+        id=id_doc
+    )

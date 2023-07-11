@@ -18,7 +18,7 @@ from pydantic import ValidationError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 import src.core.config as config
-from src.logger import logger
+from src.core.logger import logger
 
 
 # async def get_current_user(

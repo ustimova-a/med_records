@@ -8,33 +8,29 @@ from fastapi.encoders import jsonable_encoder
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-import src.security as security
-import src.core.config as config
+from src.core.security import string_hash
+from src.core.database import get_current_db
+from src.documents.schemas import Document
+
 import src.users.schemas as u_schemas
 import src.users.service as u_service
 import src.users.models as u_models
 
-from src.documents.schemas import Document
 
-import src.app
-from src.logger import logger
-from src.database import get_current_db
-
-
-# router = APIRouter(dependencies=[Depends(security.get_current_username)])
 router = APIRouter(
     prefix="/users",
     tags=["users"]
 )
 
-# region User
+# region UserCRUD
 
 
 @router.get("/", response_class=HTMLResponse)
 async def get_all_users(
     *,
     request: Request,
-    db_session: AsyncSession = Depends(get_current_db)
+    db_session: AsyncSession = Depends(get_current_db),
+    current_user: u_models.User = Depends(u_service.get_current_user)
 ) -> HTMLResponse:
 
     users = await u_models.User.get_all(db_session=db_session)
@@ -51,8 +47,12 @@ async def get_all_users(
 async def create_user(
     *,
     user_in: u_schemas.UserCreate,
-    db_session: AsyncSession = Depends(get_current_db)
+    db_session: AsyncSession = Depends(get_current_db),
+    current_user: u_models.User = Depends(u_service.get_current_user)
 ) -> u_models.User:
+
+    if user_in.password:
+        user_in.password = string_hash(user_in.password)
 
     user = await u_models.User.create(db_session=db_session, cls_in=user_in)
     return user
@@ -62,7 +62,8 @@ async def create_user(
 async def get_user_by_id(
     *,
     user_id: int,
-    db_session: AsyncSession = Depends(get_current_db)
+    db_session: AsyncSession = Depends(get_current_db),
+    current_user: u_models.User = Depends(u_service.get_current_user)
 ) -> u_models.User:
 
     user = await u_models.User.get_by_id(db_session=db_session, id=user_id)
@@ -74,7 +75,8 @@ async def update_user(
     *,
     user_id: int,
     user_in: u_schemas.UserCreate,
-    db_session: AsyncSession = Depends(get_current_db)
+    db_session: AsyncSession = Depends(get_current_db),
+    current_user: u_models.User = Depends(u_service.get_current_user)
 ) -> u_models.User:
 
     user = await u_models.User.update(
@@ -89,7 +91,8 @@ async def update_user(
 async def delete_user(
     *,
     user_id: int,
-    db_session: AsyncSession = Depends(get_current_db)
+    db_session: AsyncSession = Depends(get_current_db),
+    current_user: u_models.User = Depends(u_service.get_current_user)
 ) -> u_schemas.UserRead:
 
     user = await u_models.User.delete(db_session=db_session, id=user_id)
@@ -102,7 +105,8 @@ async def delete_user(
 async def get_users_docs(
     *,
     user_id: int,
-    db_session: AsyncSession = Depends(get_current_db)
+    db_session: AsyncSession = Depends(get_current_db),
+    current_user: u_models.User = Depends(u_service.get_current_user)
 ) -> List[Document]:
 
     result = await u_service.get_users_docs(

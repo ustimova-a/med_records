@@ -13,13 +13,13 @@ from pydantic.error_wrappers import ValidationError
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.logger import logger
-from src.database import get_current_db
+from src.core.logger import logger
+from src.core.database import get_current_db
 from src.documents.models import Document
 from src.core.auth.schemas import TokenPayload
 
-from src.security import reusable_oauth2
-from src.security import decode_token
+from src.core.security import reusable_oauth2
+from src.core.security import decode_token
 
 from src.users.models import User
 from src.users.models import Session

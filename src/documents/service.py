@@ -6,12 +6,9 @@ from fastapi import UploadFile
 from fastapi.requests import Request
 from fastapi.responses import FileResponse
 from fastapi.exceptions import HTTPException
-from fastapi.security import OAuth2PasswordBearer
-
-from sqlalchemy.ext.asyncio import AsyncSession
 
 import src.core.config as config
-from src.logger import logger
+from src.core.logger import logger
 
 
 async def get_file(

@@ -13,8 +13,6 @@ from jwt import decode as jwt_decode
 from passlib.context import CryptContext
 from fastapi.security import OAuth2PasswordBearer
 
-import src.core.config as config
-
 
 SECRET_KEY = "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY4OTA3Mzk2NCwiaWF0IjoxNjg5MDczOTY0fQ.-J_ucKVXdRL28pf8mWNiHd8-xo-2AVtMrl8kBFtw_xI"
 ALGORITHM = "HS256"
@@ -23,7 +21,7 @@ ACCESS_TOKEN_EXPIRE_HOURS = 24 * 30 * 3  # 90 days
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 reusable_oauth2 = OAuth2PasswordBearer(
-    tokenUrl="/api/login/"
+    tokenUrl="/login/"
 )
 
 

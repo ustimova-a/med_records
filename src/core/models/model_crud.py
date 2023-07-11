@@ -8,8 +8,8 @@ from sqlalchemy import Column
 from sqlalchemy import Integer
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.logger import logger
-from src.database import Base
+from src.core.logger import logger
+from src.core.database import Base
 
 
 T_BaseCRUD = TypeVar('T_BaseCRUD', bound='BaseCRUD')

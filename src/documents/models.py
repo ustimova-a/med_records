@@ -8,7 +8,7 @@ from sqlalchemy import DateTime
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
-from src.core.models.model_crud import BaseCRUD
+from src.core.model_crud import BaseCRUD
 
 
 class Document(BaseCRUD):

@@ -25,13 +25,13 @@ router = APIRouter(
 # region UserCRUD
 
 
-@router.get("/", response_class=HTMLResponse)
+@router.get("/", response_model=List[u_schemas.UserRead])
 async def get_all_users(
     *,
     request: Request,
     db_session: AsyncSession = Depends(get_current_db),
     current_user: u_models.User = Depends(u_service.get_current_user)
-) -> HTMLResponse:
+) -> List[u_schemas.UserRead]:
 
     users = await u_models.User.get_all(db_session=db_session)
 
@@ -78,6 +78,9 @@ async def update_user(
     db_session: AsyncSession = Depends(get_current_db),
     current_user: u_models.User = Depends(u_service.get_current_user)
 ) -> u_models.User:
+
+    if user_in.password:
+        user_in.password = string_hash(user_in.password)
 
     user = await u_models.User.update(
         db_session=db_session,

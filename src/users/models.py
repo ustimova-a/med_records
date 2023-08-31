@@ -14,8 +14,8 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.core.security import create_token
-from src.core.model_crud import BaseCRUD
+from core.security import create_token
+from core.model_crud import BaseCRUD
 
 
 # region User

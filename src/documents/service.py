@@ -7,8 +7,8 @@ from fastapi.requests import Request
 from fastapi.responses import FileResponse
 from fastapi.exceptions import HTTPException
 
-import src.core.config as config
-from src.core.logger import logger
+import core.config as config
+from core.logger import logger
 
 
 async def get_file(

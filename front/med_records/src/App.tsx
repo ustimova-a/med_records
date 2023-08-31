@@ -1,18 +1,20 @@
-import ListGroup from "./components/ListGroup";
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import DocumentForm from 'components/DocumentForm.tsx';
+import DocumentDetails from 'components/DocumentDetails.tsx';
 
-function App() {
-  let items = [
-    "An item",
-    "A second item",
-    "A third item",
-    "A fourth item",
-    "And a fifth one",
-  ];
+const App: React.FC = () => {
   return (
-    <div>
-      <ListGroup items={items} heading="just items" />
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/" exact>
+          <DocumentForm onSuccess={() => {}} />
+        </Route>
+        <Route path="/documents/:id" component={DocumentDetails} />
+        {/* Other routes */}
+      </Switch>
+    </Router>
   );
-}
+};
 
 export default App;

@@ -4,7 +4,7 @@ import yaml
 # config = Config('config.yaml')
 
 
-with open("src/core/config.yaml", "r") as file_object:
+with open("core/config.yaml", "r") as file_object:
     config = yaml.load(file_object, Loader=yaml.SafeLoader)
 
 

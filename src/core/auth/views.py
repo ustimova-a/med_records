@@ -15,14 +15,14 @@ from starlette.responses import Response
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi.security import OAuth2PasswordRequestForm
 
-import src.core.auth.schemas as auth_schemas
+import core.auth.schemas as auth_schemas
 
-from src.core.database import get_current_db
-from src.core.security import verify_password
+from core.database import get_current_db
+from core.security import verify_password
 
-from src.users.models import User
-from src.users.models import Session
-from src.users.service import get_current_user
+from users.models import User
+from users.models import Session
+from users.service import get_current_user
 
 
 router = APIRouter(tags=["auth"])

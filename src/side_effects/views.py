@@ -6,12 +6,12 @@ from fastapi.encoders import jsonable_encoder
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.core.database import get_current_db
-from src.users.models import User
-from src.users.service import get_current_user
+from core.database import get_current_db
+from users.models import User
+from users.service import get_current_user
 
-import src.side_effects.schemas as se_schemas
-import src.side_effects.models as se_models
+import side_effects.schemas as se_schemas
+import side_effects.models as se_models
 
 
 router = APIRouter(

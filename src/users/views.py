@@ -8,13 +8,13 @@ from fastapi.encoders import jsonable_encoder
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.core.security import string_hash
-from src.core.database import get_current_db
-from src.documents.schemas import Document
+from core.security import string_hash
+from core.database import get_current_db
+from documents.schemas import Document
 
-import src.users.schemas as u_schemas
-import src.users.service as u_service
-import src.users.models as u_models
+import users.schemas as u_schemas
+import users.service as u_service
+import users.models as u_models
 
 
 router = APIRouter(

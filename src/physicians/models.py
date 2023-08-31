@@ -5,7 +5,7 @@ from sqlalchemy import String
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
-from src.core.model_crud import BaseCRUD
+from core.model_crud import BaseCRUD
 
 
 class Physician(BaseCRUD):

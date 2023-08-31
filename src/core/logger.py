@@ -3,7 +3,7 @@ import sys
 import logging
 from logging.handlers import TimedRotatingFileHandler
 
-import src.core.config as config
+import core.config as config
 
 
 # get logger
@@ -11,7 +11,8 @@ logger = logging.getLogger("main")
 
 # create handler
 handler = TimedRotatingFileHandler(
-    filename=f'{config.LOG_DIR}/runtime.log',
+    # filename=f'{config.LOG_DIR}/runtime.log',
+    filename='./runtime.log',
     when='D',
     interval=1,
     backupCount=90,

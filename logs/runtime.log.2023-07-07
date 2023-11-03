@@ -1,0 +1,226 @@
+2023-07-05 14:10:36,774 - main -             <module>() - INFO - Start logger
+2023-07-05 14:10:59,374 - main -             <module>() - INFO - Start logger
+2023-07-05 14:12:01,921 - main -          upload_file() - DEBUG - ./storage/1a_f_check_enter_skd.sql
+2023-07-05 14:12:01,922 - main -      create_document() - DEBUG - File stored at: ./storage/1a_f_check_enter_skd.sql
+2023-07-05 14:12:57,990 - main -             <module>() - INFO - Start logger
+2023-07-05 14:13:24,945 - main -          upload_file() - DEBUG - ./storage/rose-pine-dark.vim
+2023-07-05 14:13:41,764 - main -             <module>() - INFO - Start logger
+2023-07-05 14:13:47,433 - main -          upload_file() - DEBUG - File path: ./storage/rose-pine-dark.vim
+2023-07-05 14:14:44,574 - main -             <module>() - INFO - Start logger
+2023-07-05 14:14:50,073 - main -          upload_file() - DEBUG - File path: ./storage/rose-pine-dark.vim
+2023-07-05 14:15:24,404 - main -             <module>() - INFO - Start logger
+2023-07-05 14:19:50,277 - main -             <module>() - INFO - Start logger
+2023-07-05 14:19:52,252 - main -          upload_file() - DEBUG - File path: ./storage/rose-pine-dark.vim
+2023-07-05 14:20:00,735 - main -          upload_file() - DEBUG - File path: ./storage/rose-pine-dark.vim
+2023-07-05 14:20:57,369 - main -             <module>() - INFO - Start logger
+2023-07-05 14:21:20,686 - main -             <module>() - INFO - Start logger
+2023-07-05 14:21:23,052 - main -             <module>() - INFO - Start logger
+2023-07-05 14:21:41,133 - main -             <module>() - INFO - Start logger
+2023-07-05 14:21:52,109 - main -             <module>() - INFO - Start logger
+2023-07-05 14:23:03,840 - main -             <module>() - INFO - Start logger
+2023-07-05 14:27:27,760 - main -             <module>() - INFO - Start logger
+2023-07-05 14:28:11,415 - main -             <module>() - INFO - Start logger
+2023-07-05 14:30:06,159 - main -             <module>() - INFO - Start logger
+2023-07-05 14:30:18,625 - main -             <module>() - INFO - Start logger
+2023-07-05 14:30:29,590 - main -             <module>() - INFO - Start logger
+2023-07-05 14:30:32,627 - main -             <module>() - INFO - Start logger
+2023-07-05 14:30:36,226 - main -             <module>() - INFO - Start logger
+2023-07-05 14:31:16,461 - main -          upload_file() - ERROR - join() argument must be str, bytes, or os.PathLike object, not 'datetime'
+2023-07-05 14:34:47,434 - main -             <module>() - INFO - Start logger
+2023-07-05 14:35:34,219 - main -          upload_file() - DEBUG - File stored at: ./storage/05-07-2023/rose-pine-dark.vim
+2023-07-05 14:35:34,219 - main -          upload_file() - ERROR - [Errno 2] No such file or directory: './storage/05-07-2023/rose-pine-dark.vim'
+2023-07-05 14:37:15,672 - main -             <module>() - INFO - Start logger
+2023-07-05 14:37:21,921 - main -             <module>() - INFO - Start logger
+2023-07-05 14:37:47,193 - main -          upload_file() - DEBUG - File stored at: ./storage/05-07-2023/attach_1125121539_5228685666118908727.jpeg
+2023-07-05 14:39:02,030 - main -             <module>() - INFO - Start logger
+2023-07-05 14:39:24,885 - main -          upload_file() - DEBUG - File stored at: ./storage/05-07-2023/attach_1125121539_5228685666118908727.jpeg
+2023-07-05 14:40:13,173 - main -             <module>() - INFO - Start logger
+2023-07-05 14:40:45,711 - main -             <module>() - INFO - Start logger
+2023-07-05 14:41:09,087 - main -             <module>() - INFO - Start logger
+2023-07-05 14:41:12,422 - main -             <module>() - INFO - Start logger
+2023-07-05 14:41:43,642 - main -             <module>() - INFO - Start logger
+2023-07-05 14:45:59,660 - main -          upload_file() - DEBUG - File stored at: ./storage/05-07-2023/attach_1125121539_5228685666118908727.jpeg
+2023-07-05 14:46:44,836 - main -             <module>() - INFO - Start logger
+2023-07-05 14:46:49,141 - main -          upload_file() - DEBUG - File stored at: ./storage/05-07-2023/attach_1125121539_5228685666118908727.jpeg
+2023-07-05 14:47:41,120 - main -          upload_file() - DEBUG - File stored at: ./storage/05-07-2023/attach_1125121539_5228685666118908727.jpeg
+2023-07-05 14:48:25,427 - main -             <module>() - INFO - Start logger
+2023-07-05 14:48:28,770 - main -             <module>() - INFO - Start logger
+2023-07-05 14:48:34,412 - main -             <module>() - INFO - Start logger
+2023-07-05 14:48:51,384 - main -             <module>() - INFO - Start logger
+2023-07-05 14:49:07,060 - main -             <module>() - INFO - Start logger
+2023-07-05 14:50:46,280 - main -             <module>() - INFO - Start logger
+2023-07-05 14:51:10,182 - main -          upload_file() - DEBUG - File stored at: ./storage/attach_1125121539_5228685666118908727.jpeg
+2023-07-05 14:59:40,159 - main -             <module>() - INFO - Start logger
+2023-07-05 15:09:12,890 - main -             <module>() - INFO - Start logger
+2023-07-05 15:09:33,469 - main -        get_all_users() - DEBUG - Users: [<src.models.models.User object at 0x7fc1ee25c160>, <src.models.models.User object at 0x7fc1ee25c1c0>]
+2023-07-05 15:10:32,463 - main -             <module>() - INFO - Start logger
+2023-07-05 15:11:11,716 - main -             <module>() - INFO - Start logger
+2023-07-05 15:12:17,267 - main -             <module>() - INFO - Start logger
+2023-07-05 15:12:27,132 - main -             <module>() - INFO - Start logger
+2023-07-05 15:12:38,107 - main -             <module>() - INFO - Start logger
+2023-07-05 15:12:48,462 - main -             <module>() - INFO - Start logger
+2023-07-05 15:14:31,905 - main -             <module>() - INFO - Start logger
+2023-07-05 15:15:25,134 - main -             <module>() - INFO - Start logger
+2023-07-05 15:16:06,002 - main -             <module>() - INFO - Start logger
+2023-07-05 15:17:13,134 - main -             <module>() - INFO - Start logger
+2023-07-05 15:19:49,145 - main -             <module>() - INFO - Start logger
+2023-07-05 15:20:16,009 - main -        get_all_users() - DEBUG - Users: [<src.models.models.User object at 0x7fcb31b37be0>, <src.models.models.User object at 0x7fcb31b37c40>, <src.models.models.User object at 0x7fcb31b37cd0>]
+2023-07-05 15:53:26,742 - main -             <module>() - INFO - Start logger
+2023-07-05 15:55:40,742 - main -             <module>() - INFO - Start logger
+2023-07-05 15:56:43,732 - main -             <module>() - INFO - Start logger
+2023-07-05 15:56:59,354 - main -             <module>() - INFO - Start logger
+2023-07-05 15:57:20,839 - main -             <module>() - INFO - Start logger
+2023-07-05 15:57:47,380 - main -             <module>() - INFO - Start logger
+2023-07-05 15:57:51,420 - main -             <module>() - INFO - Start logger
+2023-07-06 10:48:45,304 - main -             <module>() - INFO - Start logger
+2023-07-06 10:49:04,754 - main -             <module>() - INFO - Start logger
+2023-07-06 10:49:31,562 - main -              get_all() - DEBUG - All items: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x7f32eaf6c0a0>
+2023-07-06 10:49:55,928 - main -               create() - DEBUG - Item created: <src.models.models.User object at 0x7f32ed0f6d00>
+2023-07-06 10:50:09,571 - main -            get_by_id() - DEBUG - Item provided: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x7f32eaf9d520>
+2023-07-06 10:50:21,109 - main -               update() - DEBUG - Item updated: <class 'src.models.models.User'>
+2023-07-06 10:50:21,110 - main -            get_by_id() - DEBUG - Item provided: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x7f32eaf2cee0>
+2023-07-06 10:50:39,134 - main -            get_by_id() - DEBUG - Item provided: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x7f32eaf9dd00>
+2023-07-06 10:50:39,137 - main -               delete() - DEBUG - Item deleted: <src.models.models.User object at 0x7f32eaf31190>
+2023-07-06 10:51:02,774 - main -          upload_file() - DEBUG - File stored at: ./storage/FastAPI - Swagger UI.html
+2023-07-06 10:51:02,779 - main -               create() - DEBUG - Item created: <src.models.models.Document object at 0x7f32eaf6ccd0>
+2023-07-06 10:52:16,372 - main -             <module>() - INFO - Start logger
+2023-07-06 12:07:15,969 - main -             <module>() - INFO - Start logger
+2023-07-06 12:09:37,678 - main -             <module>() - INFO - Start logger
+2023-07-06 12:12:10,105 - main -             <module>() - INFO - Start logger
+2023-07-06 12:13:11,204 - main -             <module>() - INFO - Start logger
+2023-07-06 12:13:32,602 - main -             <module>() - INFO - Start logger
+2023-07-06 12:27:06,253 - main -             <module>() - INFO - Start logger
+2023-07-06 12:27:12,584 - main -             <module>() - INFO - Start logger
+2023-07-06 12:27:46,283 - main -             <module>() - INFO - Start logger
+2023-07-06 12:29:11,694 - main -             <module>() - INFO - Start logger
+2023-07-06 12:29:52,533 - main -             <module>() - INFO - Start logger
+2023-07-06 12:30:15,515 - main -             <module>() - INFO - Start logger
+2023-07-06 12:30:26,568 - main -             <module>() - INFO - Start logger
+2023-07-06 12:30:35,332 - main -             <module>() - INFO - Start logger
+2023-07-06 12:31:49,077 - main -             <module>() - INFO - Start logger
+2023-07-06 12:31:54,024 - main -             <module>() - INFO - Start logger
+2023-07-06 12:32:10,306 - main -             <module>() - INFO - Start logger
+2023-07-06 12:32:53,752 - main -             <module>() - INFO - Start logger
+2023-07-06 12:32:57,302 - main -             <module>() - INFO - Start logger
+2023-07-06 12:32:59,228 - main -             <module>() - INFO - Start logger
+2023-07-06 12:33:09,281 - main -             <module>() - INFO - Start logger
+2023-07-06 12:33:26,250 - main -             <module>() - INFO - Start logger
+2023-07-06 12:34:03,278 - main -             <module>() - INFO - Start logger
+2023-07-06 12:34:44,112 - main -             <module>() - INFO - Start logger
+2023-07-06 12:39:14,738 - main -             <module>() - INFO - Start logger
+2023-07-06 12:40:00,494 - main -             <module>() - INFO - Start logger
+2023-07-06 12:40:08,926 - main -             <module>() - INFO - Start logger
+2023-07-06 12:40:19,049 - main -             <module>() - INFO - Start logger
+2023-07-06 12:42:56,176 - main -             <module>() - INFO - Start logger
+2023-07-06 12:44:26,395 - main -             <module>() - INFO - Start logger
+2023-07-06 12:44:54,821 - main -             <module>() - INFO - Start logger
+2023-07-06 12:45:10,494 - main -             <module>() - INFO - Start logger
+2023-07-06 12:45:29,132 - main -             <module>() - INFO - Start logger
+2023-07-06 12:45:54,369 - main -             <module>() - INFO - Start logger
+2023-07-06 12:46:10,385 - main -             <module>() - INFO - Start logger
+2023-07-06 12:46:34,730 - main -             <module>() - INFO - Start logger
+2023-07-06 12:47:19,629 - main -             <module>() - INFO - Start logger
+2023-07-06 12:47:56,617 - main -             <module>() - INFO - Start logger
+2023-07-06 13:01:00,341 - main -             <module>() - INFO - Start logger
+2023-07-06 13:01:29,157 - main -             <module>() - INFO - Start logger
+2023-07-06 13:02:06,291 - main -             <module>() - INFO - Start logger
+2023-07-06 13:02:23,068 - main -             <module>() - INFO - Start logger
+2023-07-06 13:09:46,156 - main -             <module>() - INFO - Start logger
+2023-07-06 13:10:16,084 - main -             <module>() - INFO - Start logger
+2023-07-06 13:11:39,631 - main -             <module>() - INFO - Start logger
+2023-07-06 13:13:03,579 - main -             <module>() - INFO - Start logger
+2023-07-06 13:13:22,248 - main -             <module>() - INFO - Start logger
+2023-07-06 13:13:29,574 - main -             <module>() - INFO - Start logger
+2023-07-06 13:14:34,791 - main -             <module>() - INFO - Start logger
+2023-07-06 13:15:15,515 - main -             <module>() - INFO - Start logger
+2023-07-06 13:15:33,399 - main -             <module>() - INFO - Start logger
+2023-07-06 13:15:40,349 - main -              get_all() - DEBUG - All items: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x7f3239128a30>
+2023-07-06 13:17:58,279 - main -             <module>() - INFO - Start logger
+2023-07-06 13:18:21,162 - main -             <module>() - INFO - Start logger
+2023-07-06 13:18:30,420 - main -             <module>() - INFO - Start logger
+2023-07-06 13:18:48,185 - main -             <module>() - INFO - Start logger
+2023-07-06 13:18:58,510 - main -             <module>() - INFO - Start logger
+2023-07-06 13:19:23,589 - main -             <module>() - INFO - Start logger
+2023-07-06 13:19:32,801 - main -             <module>() - INFO - Start logger
+2023-07-06 13:20:09,423 - main -             <module>() - INFO - Start logger
+2023-07-06 13:20:32,247 - main -             <module>() - INFO - Start logger
+2023-07-06 13:20:39,141 - main -             <module>() - INFO - Start logger
+2023-07-06 13:21:16,578 - main -             <module>() - INFO - Start logger
+2023-07-06 13:21:23,341 - main -             <module>() - INFO - Start logger
+2023-07-06 13:21:26,234 - main -             <module>() - INFO - Start logger
+2023-07-06 13:22:02,874 - main -             <module>() - INFO - Start logger
+2023-07-06 13:22:05,195 - main -             <module>() - INFO - Start logger
+2023-07-06 13:22:18,915 - main -             <module>() - INFO - Start logger
+2023-07-06 13:23:04,035 - main -             <module>() - INFO - Start logger
+2023-07-06 13:34:11,060 - main -             <module>() - INFO - Start logger
+2023-07-06 13:41:44,370 - main -             <module>() - INFO - Start logger
+2023-07-06 13:42:23,627 - main -             <module>() - INFO - Start logger
+2023-07-06 13:42:39,711 - main -             <module>() - INFO - Start logger
+2023-07-06 13:42:42,034 - main -             <module>() - INFO - Start logger
+2023-07-06 13:42:57,835 - main -             <module>() - INFO - Start logger
+2023-07-06 13:43:17,988 - main -             <module>() - INFO - Start logger
+2023-07-06 13:43:23,326 - main -             <module>() - INFO - Start logger
+2023-07-06 13:44:14,285 - main -             <module>() - INFO - Start logger
+2023-07-06 13:46:03,271 - main -             <module>() - INFO - Start logger
+2023-07-06 13:46:19,155 - main -             <module>() - INFO - Start logger
+2023-07-06 13:46:29,299 - main -             <module>() - INFO - Start logger
+2023-07-06 13:46:33,242 - main -             <module>() - INFO - Start logger
+2023-07-06 13:47:21,986 - main -             <module>() - INFO - Start logger
+2023-07-06 13:47:30,821 - main -              get_all() - DEBUG - All items: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x7ff485df9af0>
+2023-07-06 13:51:24,860 - main -             <module>() - INFO - Start logger
+2023-07-06 15:04:41,489 - main -             <module>() - INFO - Start logger
+2023-07-06 15:05:12,167 - main -             <module>() - INFO - Start logger
+2023-07-06 15:07:11,951 - main -             <module>() - INFO - Start logger
+2023-07-06 15:08:46,851 - main -             <module>() - INFO - Start logger
+2023-07-06 15:11:58,353 - main -             <module>() - INFO - Start logger
+2023-07-06 15:16:31,210 - main -             <module>() - INFO - Start logger
+2023-07-06 15:21:22,298 - main -             <module>() - INFO - Start logger
+2023-07-06 15:22:14,269 - main -             <module>() - INFO - Start logger
+2023-07-06 15:22:17,949 - main -             <module>() - INFO - Start logger
+2023-07-06 15:22:51,183 - main -             <module>() - INFO - Start logger
+2023-07-06 15:23:12,327 - main -             <module>() - INFO - Start logger
+2023-07-06 15:23:16,353 - main -             <module>() - INFO - Start logger
+2023-07-06 15:23:39,393 - main -             <module>() - INFO - Start logger
+2023-07-06 15:24:10,127 - main -             <module>() - INFO - Start logger
+2023-07-06 15:24:30,632 - main -             <module>() - INFO - Start logger
+2023-07-06 15:29:09,262 - main -             <module>() - INFO - Start logger
+2023-07-06 15:30:24,198 - main -             <module>() - INFO - Start logger
+2023-07-06 15:30:37,877 - main -             <module>() - INFO - Start logger
+2023-07-06 15:32:04,513 - main -             <module>() - INFO - Start logger
+2023-07-06 15:33:19,409 - main -             <module>() - INFO - Start logger
+2023-07-06 15:33:27,923 - main -             <module>() - INFO - Start logger
+2023-07-06 15:33:50,931 - main -             <module>() - INFO - Start logger
+2023-07-06 15:33:59,948 - main -             <module>() - INFO - Start logger
+2023-07-06 15:34:21,624 - main -             <module>() - INFO - Start logger
+2023-07-06 15:34:46,439 - main -             <module>() - INFO - Start logger
+2023-07-06 15:36:21,591 - main -             <module>() - INFO - Start logger
+2023-07-06 15:37:06,825 - main -             <module>() - INFO - Start logger
+2023-07-06 15:37:18,890 - main -             <module>() - INFO - Start logger
+2023-07-06 15:37:57,365 - main -             <module>() - INFO - Start logger
+2023-07-06 15:38:45,692 - main -             <module>() - INFO - Start logger
+2023-07-06 15:38:59,685 - main -             <module>() - INFO - Start logger
+2023-07-06 15:39:16,262 - main -             <module>() - INFO - Start logger
+2023-07-06 15:39:37,508 - main -             <module>() - INFO - Start logger
+2023-07-06 15:40:40,491 - main -             <module>() - INFO - Start logger
+2023-07-06 15:41:34,074 - main -             <module>() - INFO - Start logger
+2023-07-06 15:42:21,738 - main -             <module>() - INFO - Start logger
+2023-07-06 15:45:01,695 - main -             <module>() - INFO - Start logger
+2023-07-06 15:47:56,496 - main -             <module>() - INFO - Start logger
+2023-07-06 15:57:02,627 - main -             <module>() - INFO - Start logger
+2023-07-06 15:59:56,262 - main -             <module>() - INFO - Start logger
+2023-07-06 16:06:44,398 - main -             <module>() - INFO - Start logger
+2023-07-06 16:06:59,503 - main -             <module>() - INFO - Start logger
+2023-07-06 16:12:24,819 - main -             <module>() - INFO - Start logger
+2023-07-06 16:15:50,721 - main -             <module>() - INFO - Start logger
+2023-07-06 16:29:22,614 - main -             <module>() - INFO - Start logger
+2023-07-06 16:30:58,152 - main -             <module>() - INFO - Start logger
+2023-07-06 16:34:18,020 - main -             <module>() - INFO - Start logger
+2023-07-06 16:36:27,822 - main -             <module>() - INFO - Start logger
+2023-07-06 16:50:11,132 - main -             <module>() - INFO - Start logger
+2023-07-06 16:51:27,776 - main -             <module>() - INFO - Start logger
+2023-07-06 16:52:19,098 - main -             <module>() - INFO - Start logger
+2023-07-06 16:53:01,777 - main -             <module>() - INFO - Start logger
+2023-07-06 16:53:09,667 - main -              get_all() - DEBUG - All items: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x7f92e2c0e580>
+2023-07-06 16:54:20,271 - main -             <module>() - INFO - Start logger
+2023-07-06 16:54:23,040 - main -              get_all() - DEBUG - All items: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x7fcdb61eb880>
+2023-07-07 10:01:32,559 - main -             <module>() - INFO - Start logger

@@ -35,3 +35,8 @@ STATIC_DIR = config['Application'].get('app_name', DEFAULT_STATIC_DIR)
 
 LOG_DIR = config['Application'].get('log_dir', './')
 STORAGE_DIR = config['Application'].get('storage_dir', './')
+
+
+# Auth
+JWT_KEY = config['Auth'].get('jwt_key')
+TOKEN_EXPIRATION_DAYS = config['Auth'].get('token_expiration_days', 10)

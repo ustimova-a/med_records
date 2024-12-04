@@ -1,8 +1,3 @@
-"""
-Model schemas of authorization.
-
-Author: exrofol
-"""
 from typing import Optional
 
 from pydantic import BaseModel

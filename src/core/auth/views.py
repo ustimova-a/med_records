@@ -1,8 +1,3 @@
-"""
-Model authorization view.
-
-Author: exrofol
-"""
 from typing import Any
 from typing import Union
 

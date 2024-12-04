@@ -11,10 +11,12 @@ from typing import Union
 
 from fastapi.security import OAuth2PasswordBearer
 
+import core.config as config
 
-SECRET_KEY = "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY4OTA3Mzk2NCwiaWF0IjoxNjg5MDczOTY0fQ.-J_ucKVXdRL28pf8mWNiHd8-xo-2AVtMrl8kBFtw_xI"
+
+SECRET_KEY = config.JWT_KEY
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_HOURS = 24 * 30 * 3  # 90 days
+# ACCESS_TOKEN_EXPIRE_HOURS = 24 * 30 * 3  # 90 days
 
 reusable_oauth2 = OAuth2PasswordBearer(
     tokenUrl="/login/"
@@ -36,7 +38,7 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 def create_token(
     subject: Union[str, Any],
     expires_delta: datetime.timedelta = datetime.timedelta(
-        days=10  # to config
+        days=config.TOKEN_EXPIRATION_DAYS
     )
 ) -> str:
     """

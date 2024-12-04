@@ -15,15 +15,15 @@ Base = declarative_base()
 
 DATABASE_URI = PostgresDsn.build(
     scheme='postgresql+asyncpg',
-    user=config.DATABASE_LOGIN,
+    username=config.DATABASE_LOGIN,
     password=config.DATABASE_PASSWORD,
     host=config.DATABASE_HOST,
     port=config.DATABASE_PORT,
-    path=f"/{config.DATABASE_NAME}"
+    path=config.DATABASE_NAME
 )
 
 async_engine = create_async_engine(
-    DATABASE_URI,
+    DATABASE_URI.unicode_string(),
 
     pool_size=config.DATABASE_POOL_SIZE,  # Размер пула сессий с базой данных. Кол-во
                                           # сессий будет всегда находится в памяти для

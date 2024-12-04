@@ -34,14 +34,13 @@ async def upload_file(
     file: UploadFile,
     file_date: str
 ) -> Any:
+    upload_dir = config.STORAGE_DIR
+    os.makedirs(upload_dir, exist_ok=True)
+
+    dest_path = os.path.join(upload_dir, f'{file_date}_{file.filename}')
+    logger.debug(f'File will be stored at: {dest_path}')
+
     try:
-        upload_dir = config.STORAGE_DIR
-        if not os.path.exists(upload_dir):
-            os.makedirs(upload_dir)
-
-        dest_path = os.path.join(upload_dir, f'{file_date}.{file.filename}')
-        logger.debug(f'File stored at: {dest_path}')
-
         with open(dest_path, "wb") as f:
             f.write(await file.read())
             # shutil.copyfileobj(file.file, buffer)

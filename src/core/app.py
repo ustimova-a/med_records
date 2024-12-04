@@ -58,7 +58,7 @@ app.include_router(se_router)
 #     autoescape=select_autoescape(['html'])
 # )
 
-templates = Jinja2Templates(directory="src/templates/")
+#templates = Jinja2Templates(directory="src/templates/")
 
 # endregion
 

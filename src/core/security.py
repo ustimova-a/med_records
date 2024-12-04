@@ -2,23 +2,19 @@
 Модуль безопасности для создания токенов пользователя и проверки паролей
 """
 import uuid
+import jwt
+import bcrypt
 import datetime
 
 from typing import Any
 from typing import Union
 
-from jwt import encode as jwt_encode
-from jwt import decode as jwt_decode
-
-from passlib.context import CryptContext
 from fastapi.security import OAuth2PasswordBearer
 
 
 SECRET_KEY = "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY4OTA3Mzk2NCwiaWF0IjoxNjg5MDczOTY0fQ.-J_ucKVXdRL28pf8mWNiHd8-xo-2AVtMrl8kBFtw_xI"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_HOURS = 24 * 30 * 3  # 90 days
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 reusable_oauth2 = OAuth2PasswordBearer(
     tokenUrl="/login/"
@@ -32,7 +28,9 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     :param hashed_password:
     :return:
     """
-    return pwd_context.verify(plain_password, hashed_password)
+    password_byte_enc = plain_password.encode('utf-8')
+    hashed_password = hashed_password.encode('utf-8')
+    return bcrypt.checkpw(password=password_byte_enc, hashed_password=hashed_password)
 
 
 def create_token(
@@ -48,7 +46,7 @@ def create_token(
     :param expires_delta:
     :return:
     """
-    expire = datetime.datetime.utcnow() + expires_delta
+    expire = datetime.datetime.now() + expires_delta
 
     to_encode = {
         "exp": expire,
@@ -56,7 +54,7 @@ def create_token(
         "uuid": str(uuid.uuid4())
     }
 
-    encoded_jwt = jwt_encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
 
@@ -69,19 +67,23 @@ def decode_token(
     :param token:
     :return:
     """
-    return jwt_decode(
+    return jwt.decode(
         token, SECRET_KEY, algorithms=[ALGORITHM]
     )
 
 
-def string_hash(string: str) -> str:
+def hash_password(password: str) -> str:
     """
-    Method hashed string.
+    Method hashed password.
 
     :param string:
     :return:
     """
-    return pwd_context.hash(string)
+    pwd_bytes = password.encode('utf-8')
+    salt = bcrypt.gensalt()
+    hashed_password = bcrypt.hashpw(password=pwd_bytes, salt=salt)
+    string_password = hashed_password.decode('utf-8')
+    return string_password
 
 # security = HTTPBasic()
 # FERNET_KEY = b'09FPnNDxYMiYqEvHoyREPeA7c5Y5rEq9Y5wwZBPZVas='

@@ -8,7 +8,7 @@ from fastapi.encoders import jsonable_encoder
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core.security import string_hash
+from core.security import hash_password
 from core.database import get_current_db
 from documents.schemas import Document
 
@@ -52,7 +52,7 @@ async def create_user(
 ) -> u_models.User:
 
     if user_in.password:
-        user_in.password = string_hash(user_in.password)
+        user_in.password = hash_password(user_in.password)
 
     user = await u_models.User.create(db_session=db_session, cls_in=user_in)
     return user
@@ -80,7 +80,7 @@ async def update_user(
 ) -> u_models.User:
 
     if user_in.password:
-        user_in.password = string_hash(user_in.password)
+        user_in.password = hash_password(user_in.password)
 
     user = await u_models.User.update(
         db_session=db_session,

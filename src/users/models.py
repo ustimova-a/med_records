@@ -94,7 +94,7 @@ class Session(BaseCRUD):
         expires_delta = datetime.timedelta(
             hours=10  # to config
         )
-        expired_on = datetime.datetime.utcnow() + expires_delta
+        expired_on = datetime.datetime.now() + expires_delta
         token = create_token(subject=user.id, expires_delta=expires_delta)
 
         session = await cls.get_by_token(db_session=db_session, token=token)
